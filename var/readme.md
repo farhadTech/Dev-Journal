@@ -109,3 +109,44 @@ class Person {
 ✅ Use `var` when it improves readability and reduces redundancy.
 ❌ Avoid `var` when it makes code harder to understand.
 
+## FAQ:
+
+## ❌ Can `var` Be Used with Classes Like `Employee`?
+No, `var` **cannot** be used for class-level fields. It is only for local variable type inference inside methods, loops, or blocks.
+
+### ❌ Invalid Use in Class Fields
+```java
+class Employee {
+    var name;  // ❌ ERROR: Cannot use 'var' for class fields
+    var salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+}
+```
+✅ Instead, explicitly define the type:
+```java
+class Employee {
+    String name;
+    double salary;
+
+    public Employee(String name, double salary) {
+        this.name = name;
+        this.salary = salary;
+    }
+}
+```
+
+### ✅ Valid Use of `var` Inside a Method
+```java
+public class EmployeeTest {
+    public static void main(String[] args) {
+        var emp = new Employee("Alice", 50000);  // ✅ Works fine
+        System.out.println(emp.name + " earns " + emp.salary);
+    }
+}
+```
+
+
