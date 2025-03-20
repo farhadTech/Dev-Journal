@@ -124,13 +124,33 @@ System.out.println(flattened); // Output: Optional[HELLO]
 ---
 
 ## Filtering Values
+Filters the value inside an Optional.
 
 ```java
 Optional<String> optional = Optional.of("Java 8");
 Optional<String> filtered = optional.filter(value -> value.contains("Java"));
-System.out.println(filtered.orElse("No match")); // Output: Java 8
+System.out.println(filtered.orElse("No match")); // Java 8
+
+Optional<String> noMatch = optional.filter(value -> value.contains("Python"));
+System.out.println(noMatch.orElse("No match")); // No match
 ```
 
+## Using Optional in Methods
+Instead of returning null, return Optional.
+```
+java
+public static Optional<String> findUserById(int id) {
+    if (id == 1) {
+        return Optional.of("John Doe");
+    }
+    return Optional.empty();
+}
+
+public static void main(String[] args) {
+    Optional<String> user = findUserById(1);
+    System.out.println(user.orElse("User not found")); // John Doe
+}
+```
 ---
 
 ## Real-World Example: Handling User Data
@@ -198,4 +218,3 @@ optional.ifPresent(System.out::println);
 - Use `Optional` only for **return values**, not fields or parameters.
 
 Would you like more advanced use cases? 🚀
-
