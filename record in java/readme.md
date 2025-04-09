@@ -106,3 +106,28 @@ Java automatically provides:
 - API request/response models
 - Immutable value objects
 
+## Optional: Add Custom Methods or Validation in record.
+
+```java
+public record Person(String name, int age) {
+    public Person {
+        if(age < 0) throw new IllegalArgumentException("Age can not be less than 0.");
+    }
+
+    public String displayName() {
+        return name.toUpperCase();
+    }
+}
+```
+
+## Pro Tip
+If you need validation, records work with annotations too:
+
+```java
+public record UserRequestDTO(
+    @Notblank
+    String name,
+    @Email
+    String email
+) { }
+```
