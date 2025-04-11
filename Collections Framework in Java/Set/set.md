@@ -109,8 +109,11 @@ boolean isSubset = hashSet1.containsAll(hashSet2);
 System.out.print(isSubset);
 ```
 
-### Interface Hierarchy
+# Java Set Interface & Implementations
 
+## Interface Hierarchy
+
+```
              ┌────────────┐
              │   Set<E>   │
              └─────┬──────┘
@@ -124,13 +127,16 @@ System.out.print(isSubset);
  ┌──────▼─────────┐     ┌─────▼────┐
  │ LinkedHashSet  │     │ TreeSet  │
  └────────────────┘     └──────────┘
+```
 
-### Types of Set Implementations
-1. HashSet - Most Common
-* Unordered collection (no guaranteed order)
-* Allows 1 null
-* Backed by a HashMap.
-* Best for fast lookups, insertions, deletions.
+## Types of Set Implementations
+
+### 1. HashSet – Most Common
+
+- Unordered collection (no guaranteed order)
+- Allows 1 null
+- Backed by a HashMap
+- Best for fast lookups, insertions, deletions
 
 ```java
 Set<String> countries = new HashSet<>();
@@ -140,15 +146,19 @@ countries.add("Dubai");
 countries.add("Singapore");
 countries.add("France");
 countries.add("Italy");
-countries.add("USA");
+countries.add("USA"); // duplicate ignored
 
 // removing an element
 countries.remove("Italy");
+```
 
-2. LinkedHashSet - Maintains Insertion Order
-* Maintains the order in which elements are inserted.
-* Good when order matters.
-* Slightly slower than HashSet.
+---
+
+### 2. LinkedHashSet – Maintains Insertion Order
+
+- Maintains the order in which elements are inserted
+- Good when order matters
+- Slightly slower than HashSet
 
 ```java
 Set<String> countries = new LinkedHashSet<>();
@@ -180,7 +190,11 @@ while(iterator.hasNext()) {
   String countries = iterator.next();
   System.out.print(countries.toUpperCase());
 }
+```
 
+#### Set Operations
+
+```java
 Set<Integer> linkedHashSet = new LinkedHashSet<>();
 linkedHashSet.add(7);
 linkedHashSet.add(4);
@@ -199,22 +213,24 @@ linkedHashSet1.addAll(linkedHashSet2);
 // Intersection
 linkedHashSet1.retainAll(linkedHashSet2);
 
-// difference
+// Difference
 linkedHashSet1.removeAll(linkedHashSet2);
 
-// subset
+// Subset
 boolean isSubset = linkedHashSet1.containsAll(linkedHashSet2);
 System.out.print(isSubset);
 ```
 
-3. TreeSet
-* Keeps elements in natural sorted order (e.g., ascending for numbers, alphabetical for strings).
-* Implements NavigableSet and SortedSet
-* Doesn't allow nulls.
-* Backed by a Red-Black Tree
-* Slower than HashSet, but great for range queries and ordered data.
+---
 
-Example:
+### 3. TreeSet
+
+- Keeps elements in natural sorted order (e.g., ascending for numbers, alphabetical for strings)
+- Implements NavigableSet and SortedSet
+- Doesn't allow nulls
+- Backed by a Red-Black Tree
+- Slower than HashSet, but great for range queries and ordered data
+
 ```java
 Set<Integer> treeSet = new TreeSet<>();
 treeSet.add(50);
