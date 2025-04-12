@@ -23,6 +23,16 @@ public class OptionalDemo04 {
         // If a value is present returns the value otherwise returns the value produced by the supplier function.
         String msg2 = res.orElse("Value is absent");
         System.out.println("orElseGet: " + msg2);
+
+//        String msg3 = res.orElseThrow();
+//        String msg3 = res.orElseThrow(() -> new IllegalStateException("Value is absent"));
+//        System.out.println("orElseThrow: " + msg3);
+
+        Optional<String> mapOptionalStr = res.map(input -> input.toUpperCase());
+        System.out.println("mapOptionalStr: " + mapOptionalStr);
+
+        Optional<String> filterOptionalStr = res.filter(value -> value.length() > 5);
+        System.out.println("filterOptionalStr: " + filterOptionalStr);
     }
 
     public static Optional<String> sayHello() {
