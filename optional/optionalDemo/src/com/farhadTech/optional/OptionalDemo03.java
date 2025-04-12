@@ -17,7 +17,7 @@ public class OptionalDemo03 {
         if( num % 2 == 0 ) {
             msg = "Hello World";
         }
-        return Optional.ofNullable(msg); // if the value is present returns the the value, otherwise returns NullPointerException.
+        return Optional.ofNullable(msg); // if the value is present returns the value, otherwise returns NullPointerException.
     }
 }
 /**
