@@ -8,7 +8,7 @@
 
 ## Why Use Optional?
 
-- **Avoids NullPointerException** by explicitly handling missing values.
+- **Gracefully Handle NullPointerException** by explicitly handling missing values.
 - **Improves Code Readability** by making it clear that a value might be absent.
 - **Encourages Functional Programming** with map, filter, and flatMap operations.
 - **Reduces Boilerplate Code** by eliminating unnecessary null checks.
