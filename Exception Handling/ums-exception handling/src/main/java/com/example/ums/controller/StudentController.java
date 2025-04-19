@@ -1,5 +1,7 @@
 package com.example.ums.controller;
 
+import com.example.ums.common.exception.StudentErrorResponse;
+import com.example.ums.common.exception.StudentNotFoundException;
 import com.example.ums.dto.request.StudentRequestDTO;
 import com.example.ums.dto.response.StudentResponseDTO;
 import com.example.ums.service.StudentService;
@@ -24,6 +26,12 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponseDTO> getStudentById(@PathVariable Long id) {
+        int size = studentService.getAllStudents().size();
+        if (id >= size || id < 0) {
+            throw new StudentNotFoundException(
+                    "Student with id " + id + " not found"
+            );
+        }
         return new ResponseEntity<>(studentService.getStudentById(id), HttpStatus.OK);
     }
 
@@ -49,4 +57,39 @@ public class StudentController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("Student with id " + id + " not Deleted.");
     }
+
+    // Add an exception handler using @ExceptionHandler
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException e) {
+        // create a StudentErrorResponse
+        StudentErrorResponse errorResponse = new StudentErrorResponse();
+        errorResponse.setStatus(HttpStatus.NOT_FOUND.value());
+        errorResponse.setMessage(e.getMessage());
+        errorResponse.setTimeStamp(System.currentTimeMillis());
+//        return ResponseEntity
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    // Add another exception handler ... to catch any exception (catch all).
+    @ExceptionHandler
+    public ResponseEntity<StudentErrorResponse> handleException(Exception e) {
+        StudentErrorResponse errorResponse = new StudentErrorResponse();
+        errorResponse.setStatus(HttpStatus.BAD_REQUEST.value());
+        errorResponse.setMessage(e.getMessage());
+        errorResponse.setTimeStamp(System.currentTimeMillis());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
