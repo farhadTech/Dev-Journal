@@ -1,19 +1,16 @@
 package com.sb_ecommerce.project.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Categories") // changing table name
+@Getter
+@Setter
+@Entity
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +19,10 @@ public class Category {
     @NotBlank
     @Size(min = 5, message="Category name must contain at least 5 characters.")
     private String categoryName;
+
+    private int itemCount;
+
+    private boolean isActive;
+
+    private String description;
 }
