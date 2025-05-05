@@ -21,17 +21,6 @@ public class GlobalException {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(DuplicateProductException.class)
-    public ResponseEntity<ErrorDetails> handleDuplicateEmailException(DuplicateProductException exception, WebRequest webRequest) {
-        ErrorDetails errorDetails = new ErrorDetails(
-                exception.getMessage(),
-                LocalDateTime.now(),
-                webRequest.getDescription(false),
-                "Product with this name already exists"
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDetails> handleException(Exception e, WebRequest webRequest) {
         ErrorDetails errorDetails = new ErrorDetails(

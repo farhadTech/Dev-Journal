@@ -1,6 +1,7 @@
 package com.example.pagination.controller;
 
-import com.example.pagination.model.Product;
+import com.example.pagination.dto.request.ProductRequestDTO;
+import com.example.pagination.dto.response.ProductResponseDTO;
 import com.example.pagination.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,44 +19,54 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<Page<Product>> getProducts(
+    public ResponseEntity<Page<ProductResponseDTO>> getProducts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id") String sortBy
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
-        return new ResponseEntity<>(productService.getAllProduct(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAllProducts(pageable), HttpStatus.OK);
     }
 
-    @GetMapping("/id")
-    public ResponseEntity<Product> getProductById(Long id) {
-        Product product = productService.getProductById(id);
-        return new ResponseEntity<>(product, HttpStatus.OK);
-    }
-
-    @GetMapping("/name")
-    public ResponseEntity<Product> getProductByName(String name) {
-        Product product = productService.getProductByName(name);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    @GetMapping("/id/{id}")
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Long id) {
+        ProductResponseDTO productResponseDTO = productService.getProductById(id);
+        return new ResponseEntity<>(productResponseDTO, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<String> createProduct(@RequestBody Product product) {
-        productService.createProduct(product);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Product created");
+    public ResponseEntity<String> createProduct(@RequestBody ProductRequestDTO productRequestDTO) {
+        productService.createProduct(productRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
     }
 
-    @PutMapping
-    public ResponseEntity<String> updateProduct(@RequestBody Product product, @PathVariable Long id) {
-        productService.updateProduct(product, id);
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateProduct(@RequestBody ProductRequestDTO productRequestDTO, @PathVariable Long id) {
+        productService.updateProduct(productRequestDTO, id);
         return ResponseEntity.status(HttpStatus.OK)
                 .body("Product updated");
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
